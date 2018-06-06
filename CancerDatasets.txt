@@ -1,1 +1,32 @@
-Cancer Type	Samples	OS Samples	RFS Samples	ProteinsAdrenocortical carcinoma (ACC)	46	46	34	221Bladder Urothelial Carcinoma (BLCA)	344	340	281	223Breast invasive carcinoma (BRCA)	901	860	728	224Cervical squamous cell carcinoma and endocervical adenocarcinoma (CESC)	171	163	138	220Cholangiocarcinoma (CHOL)	30	30	0	219Colon adenocarcinoma (COAD)	358	315	269	223Esophageal carcinoma (ESCA)	126	126	106	220Glioblastoma multiforme (GBM)	205	136	4	223Head and Neck squamous cell carcinoma (HNSC)	346	344	279	239Kidney Chromophobe (KICH)	63	62	58	220Kidney renal clear cell carcinoma (KIRC)	445	444	95	233Kidney renal papillary cell carcinoma (KIRP)	208	206	137	221Liver hepatocellular carcinoma (LIHC)	184	182	160	220Lower Grade Glioma (LGG)	427	422	347	220Lung adenocarcinoma (LUAD)	362	350	291	239Lung squamous cell carcinoma (LUSC)	325	320	258	239Diffuse Large B-cell Lymphoma (DLBC)	33	32	31	219Mesothelioma (MESO)	61	60	28	220Ovarian serous cystadenocarcinoma (OV)	411	403	52	224Pancreatic adenocarcinoma (PAAD)	105	105	89	221Pheochromocytoma and Paraganglioma (PCPG)	81	78	75	220Prostate adenocarcinoma (PRAD)	351	351	304	220Rectum adenocarcinoma (READ)	130	121	98	223Sarcoma (SARC)	221	221	186	220Skin Cutaneous Melanoma (SKCM)	354	344	234	223Stomach adenocarcinoma (STAD)	392	331	275	220Testicular Germ Cell Tumors (TGCT)	118	104	99	219Thymoma (THYM)	90	89	85	219Thyroid carcinoma (THCA)	374	372	363	219Uterine Carcinosarcoma (UCS)	48	47	22	220Uterine Corpus Endometrial Carcinoma (UCEC)	404	402	350	223
+Cancer Type	Samples	OS Samples	DSS Samples	DFI Samples	PFI Samples	Proteins
+Adrenocortical carcinoma (ACC)	46	46	46	28	46	221
+Bladder Urothelial Carcinoma (BLCA)	344	344	330	153	344	223
+Breast invasive carcinoma (BRCA)	901	873	855	750	873	224
+Cervical squamous cell carcinoma and endocervical adenocarcinoma (CESC)	171	171	168	112	171	220
+Cholangiocarcinoma (CHOL)	30	30	29	21	30	219
+Colon adenocarcinoma (COAD)	358	325	311	126	325	223
+Diffuse Large B-cell Lymphoma (DLBCL)	33	33	33	19	33	219
+Esophageal carcinoma (ESCA)	126	126	124	76	126	220
+Glioblastoma multiforme (GBM)	205	136	123	0	136	223
+Head and Neck squamous cell carcinoma (HNSC)	346	346	326	85	346	239
+Kidney Chromophobe (KICH)	63	63	63	27	63	220
+Kidney renal clear cell carcinoma (KIRC)	445	444	434	72	444	233
+Kidney renal papillary cell carcinoma (KIRP)	208	207	205	127	207	221
+Lower Grade Glioma (LGG)	427	426	420	114	426	220
+Liver hepatocellular carcinoma (LIHC)	184	184	177	145	184	220
+Lung adenocarcinoma (LUAD)	362	361	327	203	361	239
+Lung squamous cell carcinoma (LUSC)	325	325	295	210	325	239
+Mesothelioma (MESO)	61	61	45	10	61	220
+Ovarian serous cystadenocarcinoma (OV)	411	405	377	199	407	224
+Pancreatic adenocarcinoma (PAAD)	105	105	99	40	105	221
+Pheochromocytoma and Paraganglioma (PCPG)	81	79	79	71	79	220
+Prostate adenocarcinoma (PRAD)	351	351	350	233	351	220
+Rectum adenocarcinoma (READ)	130	126	120	31	126	223
+Sarcoma (SARC)	221	221	215	125	22	220
+Skin Cutaneous Melanoma (SKCM)	354	349	346	0	349	223
+Stomach adenocarcinoma (STAD)	392	357	334	207	357	220
+Testicular Germ Cell Tumors (TGCT)	118	104	104	79	104	219
+Thyroid carcinoma (THCA)	374	372	366	268	372	219
+Thymoma (THYM)	90	90	90	9	90	219
+Uterine Corpus Endometrial Carcinoma (UCEC)	404	404	403	325	404	223
+Uterine Carcinosarcoma (UCS)	48	48	46	22	48	220

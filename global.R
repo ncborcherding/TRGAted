@@ -7,6 +7,7 @@ library(DT)
 library(dplyr)
 library(ggrepel)
 library(svglite)
+library(data.table)
 
 #Identifying and loading local data frames, there are currently 31 datasets with 7678 patient samples. 
 #Each data frame is set up with the first 5 columns as sampleIDs, OS_TIME, OS_IND, RFS_TIME, and RFS_IND, resepctively. 
@@ -18,15 +19,41 @@ colnames(proteins_assayed) <- csv
 
 for (i in seq_along(files)){
   files[[i]] <- read.csv(csv[i], stringsAsFactors = FALSE, check.names = FALSE)
+  temp_colnames <- colnames(files[[i]])
   proteins_assayed[1:length(colnames(files[[i]])),i] = colnames(files[[i]])
+  
+  for (j in 18:28){
+    probe.j <- temp_colnames[j]
+    probe.j.char <- substr(probe.j,1,1)
+    if (probe.j.char == "X"){
+      colnames(files[[i]])[j] <- substr(probe.j,2, nchar(probe.j))
+    }
+  }
 }
-#proteins_assayed include columns beyond the first 5 that include the sample and survival information
-proteins_assayed <- proteins_assayed[-c(1:5),]
+
+#proteins_assayed include columns beyond the first 17 that include the sample and survival information
+clinicalvariables <- as.data.frame(t(proteins_assayed[c(2:9),])) #NB use this to get the clinical data?
+subtype_info <- read.table(file = "subtype_info.txt", sep = "\t", header = T, stringsAsFactors = F)
+
+for (i in 1:length(clinicalvariables[,1])){
+  check_vector <- subtype_info[i,3:10]
+  spot.na <- which(check_vector == "n")
+  clinicalvariables[i,spot.na] <- NA
+}
+
+colnames(clinicalvariables) <- c("subtype", "age", "gender", "race", "ajcc_pathologic_tumor_stage", "histological_type", "histological_grade", "treatment_outcome_first_course")
+proteins_assayed <- proteins_assayed[-c(1:17),]
 proteins_assayed <- unique(proteins_assayed) #shortens the matrix by eliminating some of the NA's
 colnames(proteins_assayed) <- gsub(".csv", "", colnames(proteins_assayed))
 list_of_proteins = unique(na.omit(unlist(proteins_assayed)))
 list_of_datasets <<- seq_along(files) #this populates the drop down menu for cancer types
 names(list_of_datasets) <- gsub(pattern = ".csv", replacement = "", x = csv)
+
+list_of_subtypes <- which(!is.na(clinicalvariables[,1]))
+list_of_stages <- which(!is.na(clinicalvariables[,5]))
+list_of_histo <- which(!is.na(clinicalvariables[,6]))
+list_of_grade <- which(!is.na(clinicalvariables[,7]))
+list_of_treat <- which(!is.na(clinicalvariables[,8]))
 
 #make_plot generates the different variations of the survival curves using the survminer ggsurplot function
 make_plot <- function(fit, datOS, input, Group, col, cox, use) {
@@ -39,7 +66,7 @@ make_plot <- function(fit, datOS, input, Group, col, cox, use) {
                     pval = T,
                     pval.coord = c(0.05, 0.05),
                     legend.title = input$Protein,
-                    legend.labs = levels(Group),
+                    legend.labs = paste(levels(Group), fit$n, sep = " = "),
                     risk.table = TRUE, 
                     fontsize = 5,
                     palette = col,
@@ -53,12 +80,13 @@ make_plot <- function(fit, datOS, input, Group, col, cox, use) {
                       xlab = "Time in days",
                       pval = T,
                       pval.coord = c(0.05, 0.05),
-                      legend.labs = levels(Group),
+                      legend.labs = paste(levels(Group), fit$n, sep = " = "),
                       risk.table = TRUE, 
                       fontsize = 5,
                       palette = col,
                       ggtheme = theme_bw(base_family = "sans", base_size = 20))
   }
+  
   if (use == 1){
     res$plot <- res$plot + ggplot2::annotate("text", 
                                              x = Inf, y = Inf, hjust = 1.25, vjust = 1.5, # x and y coordinates of the text
@@ -73,12 +101,22 @@ cutoff_type <- function(input,data2) {
     return(NULL)
   }
   if (input$survival == "Overall") {
-    time <- data2[,"OS_TIME"]
-    censor <- data2[,"OS_IND"]
-  } else {
-    time <- data2[,"RFS_TIME"]
-    censor <- data2[,"RFS_IND"]
+    time <- data2[,"OS.time"]
+    censor <- data2[,"OS"]
   }
+  if (input$survival == "Disease.Specific") {
+    time <- data2[,"DSS.time"]
+    censor <- data2[,"DSS"]
+  }
+  if (input$survival == "Disease.Free") { 
+    time <- data2[,"DFI.time"]
+    censor <- data2[,"DFI"]
+  }
+  if (input$survival == "Progression.Free") {
+    time <- data2[,"PFI.time"]
+    censor <- data2[,"PFI"]
+  }
+    
   #xvar is either the single protein selected or the mean of all the proteins selected
   if (length(input$Protein) == 1){
     xvar <- data2[, input$Protein]
