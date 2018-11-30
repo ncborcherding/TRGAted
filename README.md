@@ -16,7 +16,7 @@ in any work that benefits from this code or application.
 
 ### The App
 
-Citation pending
+If using the TRGAted app or derivative work, please cite our F1000research article: TRGAted: A web tool for survival analysis using protein data in the Cancer Genome Atlas. Link [Here.](https://f1000research.com/articles/7-1235/v2)
 
 
 ## Running TRGAted as a Local Session
